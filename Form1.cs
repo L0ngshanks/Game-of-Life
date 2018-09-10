@@ -46,6 +46,7 @@ namespace Game_of_Life
 
         private int NeighborCount(int x, int y)
         {
+            //Cycle threw the available neighors
             int neighborCount = 0;
 
             if (x == 0 && y == 0)

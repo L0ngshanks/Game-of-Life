@@ -12,7 +12,6 @@ namespace Game_of_Life
 {
     public partial class Form1 : Form
     {
-
         // The universe array
         bool[,] universe = new bool[20, 20];
 
@@ -40,30 +39,6 @@ namespace Game_of_Life
 
         }
 
-        public Color CellColor
-        {
-            get
-            {
-                return cellColor;
-            }
-            set
-            {
-                cellColor = value;
-            }
-        }
-
-        public Color BGColor
-        {
-            set
-            {
-                graphicsPanel1.BackColor = value;
-            }
-            get
-            {
-                return graphicsPanel1.BackColor;
-            }
-        }
-
         private void Timer_Tick(object sender, EventArgs e)
         {
             NextGeneration();
@@ -71,7 +46,6 @@ namespace Game_of_Life
 
         private int NeighborCount(int x, int y)
         {
-            //Cycle threw the available neighors
             int neighborCount = 0;
 
             if (x == 0 && y == 0)
@@ -334,24 +308,6 @@ namespace Game_of_Life
         private void toolStripButtonNext_Click(object sender, EventArgs e)
         {
             NextGeneration();
-            graphicsPanel1.Invalidate();
-        }
-
-        private void customizeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //Modal Settings form
-            Form2 settingsForm = new Form2();
-
-            settingsForm.GetCellColor = CellColor;
-            settingsForm.GetBGColor = graphicsPanel1.BackColor;
-
-            
-            DialogResult result = settingsForm.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                CellColor = settingsForm.GetCellColor;
-                graphicsPanel1.BackColor = settingsForm.GetBGColor;
-            }
             graphicsPanel1.Invalidate();
         }
     }

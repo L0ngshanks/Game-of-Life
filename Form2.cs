@@ -40,6 +40,18 @@ namespace Game_of_Life
                 return button2BGColor.BackColor;
             }
         }
+
+        public Color GetTextColor
+        {
+            get
+            {
+                return button3TextColor.BackColor;
+            }
+            set
+            {
+                button3TextColor.BackColor = value;
+            }
+        }
         private void button1CellColor_Click(object sender, EventArgs e)
         {
             ColorDialog dlgCell = new ColorDialog();

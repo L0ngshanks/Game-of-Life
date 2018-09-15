@@ -19,6 +19,8 @@ namespace Game_of_Life
         // Drawing colors
         Color gridColor = Color.Black;
         Color cellColor = Color.Gray;
+        Color BrushColor = Color.Black;
+
 
         // The Timer class
         Timer timer = new Timer();
@@ -32,6 +34,7 @@ namespace Game_of_Life
         public Form1()
         {
             InitializeComponent();
+
 
             //Setup Timer
             timer.Enabled = false;
@@ -61,6 +64,18 @@ namespace Game_of_Life
             get
             {
                 return graphicsPanel1.BackColor;
+            }
+        }
+
+        public Color TextColor
+        {
+            get
+            {
+                return BrushColor;
+            }
+            set
+            {
+                BrushColor = value;
             }
         }
 
@@ -243,6 +258,10 @@ namespace Game_of_Life
             // A Brush
             Brush cellBrush = new SolidBrush(cellColor);
 
+            //Text Brush
+            SolidBrush txtBrush = new SolidBrush(BrushColor);
+
+
             // Iterate through the universe in the y, top to bottom
             for (int y = 0; y < universe.GetLength(1); y++)
             {
@@ -271,7 +290,7 @@ namespace Game_of_Life
                     //Rectangle rect = new Rectangle(0, 0, 100, 100);
                     printNeighbors = NeighborCount(x, y);
 
-                    e.Graphics.DrawString(printNeighbors.ToString(), font, Brushes.Black, cellRect, stringFormat);
+                    e.Graphics.DrawString(printNeighbors.ToString(), font, txtBrush, cellRect, stringFormat);
 
 
                     // Outline the cell with a pen
@@ -344,13 +363,14 @@ namespace Game_of_Life
 
             settingsForm.GetCellColor = CellColor;
             settingsForm.GetBGColor = graphicsPanel1.BackColor;
-
+            settingsForm.GetTextColor = BrushColor;
             
             DialogResult result = settingsForm.ShowDialog();
             if (result == DialogResult.OK)
             {
                 CellColor = settingsForm.GetCellColor;
                 graphicsPanel1.BackColor = settingsForm.GetBGColor;
+                BrushColor = settingsForm.GetTextColor;
             }
             graphicsPanel1.Invalidate();
         }

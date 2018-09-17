@@ -50,6 +50,8 @@ namespace Game_of_Life
             CellColor = Properties.Settings.Default.CellColor;
             BGColor = Properties.Settings.Default.BGColor;
             TextColor = Properties.Settings.Default.TextColor;
+            UniverseX = Properties.Settings.Default.UniverseX;
+            UniverseY = Properties.Settings.Default.UniverseY;
         }
         //GetSet for Cell Color
         public Color CellColor
@@ -109,6 +111,18 @@ namespace Game_of_Life
             {
                 universalY = value;
             }
+        }
+
+        //Resize the Universe
+        T[,] ResizeArray<T>(T[,] original, int rows, int cols)
+        {
+            var newArray = new T[rows, cols];
+            int minRows = Math.Min(rows, original.GetLength(0));
+            int minCols = Math.Min(cols, original.GetLength(1));
+            for (int i = 0; i < minRows; i++)
+                for (int j = 0; j < minCols; j++)
+                    newArray[i, j] = original[i, j];
+            return newArray;
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -411,13 +425,16 @@ namespace Game_of_Life
                 UniverseY = settingsForm.GetUniverseY;
 
                 //build new universe
-                universe = new bool[UniverseX, UniverseY];
-                storage = new bool[UniverseX, UniverseY];
+                universe = ResizeArray(universe, UniverseX, UniverseY);
 
+                //Push data to Settings
                 Properties.Settings.Default.CellColor = settingsForm.GetCellColor;
                 Properties.Settings.Default.BGColor = settingsForm.GetBGColor;
                 Properties.Settings.Default.TextColor = settingsForm.GetTextColor;
+                Properties.Settings.Default.UniverseX = settingsForm.GetUniverseX;
+                Properties.Settings.Default.UniverseY = settingsForm.GetUniverseY;
 
+                //Save Settings
                 Properties.Settings.Default.Save();
             }
             graphicsPanel1.Invalidate();

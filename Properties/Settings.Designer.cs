@@ -58,5 +58,29 @@ namespace Game_of_Life.Properties {
                 this["TextColor"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public int UniverseX {
+            get {
+                return ((int)(this["UniverseX"]));
+            }
+            set {
+                this["UniverseX"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        public int UniverseY {
+            get {
+                return ((int)(this["UniverseY"]));
+            }
+            set {
+                this["UniverseY"] = value;
+            }
+        }
     }
 }

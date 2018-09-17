@@ -15,7 +15,8 @@ namespace Game_of_Life
 
         // The universe array
         bool[,] universe = new bool[20, 20];
-        bool[,] storage = new bool[20, 20];
+
+        bool[,] storage;
 
         //Universe Dimensions
         int universalX;
@@ -247,6 +248,8 @@ namespace Game_of_Life
 
         private void NextGeneration()
         {
+            storage = new bool[UniverseX, UniverseY];
+
             //Find Cells
             // Iterate through the universe in the y, top to bottom
             for (int y = 0; y < universe.GetLength(1); y++)

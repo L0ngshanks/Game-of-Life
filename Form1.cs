@@ -50,8 +50,10 @@ namespace Game_of_Life
             CellColor = Properties.Settings.Default.CellColor;
             BGColor = Properties.Settings.Default.BGColor;
             TextColor = Properties.Settings.Default.TextColor;
-            UniverseX = Properties.Settings.Default.UniverseX;
-            UniverseY = Properties.Settings.Default.UniverseY;
+            universalX = Properties.Settings.Default.UniverseX;
+            universalY = Properties.Settings.Default.UniverseY;
+
+            universe = new bool[universalX, universalY];
         }
         //GetSet for Cell Color
         public Color CellColor
@@ -89,41 +91,8 @@ namespace Game_of_Life
                 BrushColor = value;
             }
         }
-        //GetSet for Universe X dimension
-        public int UniverseX
-        {
-            get
-            {
-                return universe.GetLength(0);
-            }
-            set
-            {
-                universalX = value;
-            }
-        }
-        public int UniverseY
-        {
-            get
-            {
-                return universe.GetLength(1);
-            }
-            set
-            {
-                universalY = value;
-            }
-        }
 
         //Resize the Universe
-        T[,] ResizeArray<T>(T[,] original, int rows, int cols)
-        {
-            var newArray = new T[rows, cols];
-            int minRows = Math.Min(rows, original.GetLength(0));
-            int minCols = Math.Min(cols, original.GetLength(1));
-            for (int i = 0; i < minRows; i++)
-                for (int j = 0; j < minCols; j++)
-                    newArray[i, j] = original[i, j];
-            return newArray;
-        }
 
         private void Timer_Tick(object sender, EventArgs e)
         {
@@ -262,7 +231,9 @@ namespace Game_of_Life
 
         private void NextGeneration()
         {
-            storage = new bool[UniverseX, UniverseY];
+            universalX = universe.GetLength(0);
+            universalY = universe.GetLength(1);
+            storage = new bool[universalX, universalY];
 
             //Find Cells
             // Iterate through the universe in the y, top to bottom
@@ -407,11 +378,12 @@ namespace Game_of_Life
             //Modal Settings form
             ModalDialog settingsForm = new ModalDialog();
 
+            //Get Data for Modal Form
             settingsForm.GetCellColor = CellColor;
             settingsForm.GetBGColor = graphicsPanel1.BackColor;
             settingsForm.GetTextColor = BrushColor;
-            settingsForm.GetUniverseX = UniverseX;
-            settingsForm.GetUniverseY = UniverseY;
+            settingsForm.GetUniverseX = universalX;
+            settingsForm.GetUniverseY = universalY;
             
             DialogResult result = settingsForm.ShowDialog();
             if (result == DialogResult.OK)
@@ -421,11 +393,11 @@ namespace Game_of_Life
                 graphicsPanel1.BackColor = settingsForm.GetBGColor;
                 BrushColor = settingsForm.GetTextColor;
                 // Universe Dimensions
-                UniverseX = settingsForm.GetUniverseX;
-                UniverseY = settingsForm.GetUniverseY;
+                universalX = settingsForm.GetUniverseX;
+                universalY = settingsForm.GetUniverseY;
 
-                //build new universe
-                universe = ResizeArray(universe, UniverseX, UniverseY);
+                universe = new bool[universalX, universalY];
+                
 
                 //Push data to Settings
                 Properties.Settings.Default.CellColor = settingsForm.GetCellColor;

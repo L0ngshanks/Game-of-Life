@@ -233,6 +233,7 @@
             0,
             0,
             0});
+            this.numericUpDown2UniversalY.ValueChanged += new System.EventHandler(this.numericUpDown2UniversalY_ValueChanged);
             // 
             // label1
             // 
@@ -254,6 +255,7 @@
             0,
             0,
             0});
+            this.numericUpDown1UniversalX.ValueChanged += new System.EventHandler(this.numericUpDown1UniversalX_ValueChanged);
             // 
             // ModalDialog
             // 

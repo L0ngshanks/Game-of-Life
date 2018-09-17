@@ -130,5 +130,21 @@ namespace Game_of_Life
                 GetUniverseY = GetUniverseX;
             }
         }
+
+        private void numericUpDown1UniversalX_ValueChanged(object sender, EventArgs e)
+        {
+            if(checkBox1syncXY.Checked)
+            {
+                GetUniverseY = GetUniverseX;
+            }
+        }
+
+        private void numericUpDown2UniversalY_ValueChanged(object sender, EventArgs e)
+        {
+            if (checkBox1syncXY.Checked)
+            {
+                GetUniverseX = GetUniverseY;
+            }
+        }
     }
 }

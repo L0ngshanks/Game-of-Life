@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Game_of_Life
 {
-    public partial class Form2 : Form
+    public partial class ModalDialog : Form
     {
-        public Form2()
+        public ModalDialog()
         {
             InitializeComponent();
         }
@@ -52,6 +52,30 @@ namespace Game_of_Life
                 button3TextColor.BackColor = value;
             }
         }
+
+        public int GetUniverseX
+        {
+            get
+            {
+                return (int)numericUpDown1UniversalX.Value;
+            }
+            set
+            {
+                numericUpDown1UniversalX.Value = value;
+            }
+        }
+        public int GetUniverseY
+        {
+            get
+            {
+                return (int)numericUpDown2UniversalY.Value;
+            }
+            set
+            {
+                numericUpDown2UniversalY.Value = value;
+            }
+        }
+
         private void button1CellColor_Click(object sender, EventArgs e)
         {
             ColorDialog dlgCell = new ColorDialog();
@@ -88,14 +112,23 @@ namespace Game_of_Life
             }
         }
 
-        private void button4OK_Click(object sender, EventArgs e)
+        private void button2Ok_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
         }
 
-        private void button5Cancel_Click(object sender, EventArgs e)
+        private void button1Cancel_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
+        }
+
+        private void checkBox1syncXY_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1syncXY.Checked)
+            {
+                GetUniverseX = GetUniverseY;
+                GetUniverseY = GetUniverseX;
+            }
         }
     }
 }

@@ -15,6 +15,11 @@ namespace Game_of_Life
 
         // The universe array
         bool[,] universe = new bool[20, 20];
+        bool[,] storage = new bool[20, 20];
+
+        //Universe Dimensions
+        int universalX;
+        int universalY;
 
         // Drawing colors
         Color gridColor = Color.Black;
@@ -35,14 +40,17 @@ namespace Game_of_Life
         {
             InitializeComponent();
 
-
             //Setup Timer
             timer.Enabled = false;
             timer.Interval = 5;
             timer.Tick += Timer_Tick;
 
+            //Settings Load
+            CellColor = Properties.Settings.Default.CellColor;
+            BGColor = Properties.Settings.Default.BGColor;
+            TextColor = Properties.Settings.Default.TextColor;
         }
-
+        //GetSet for Cell Color
         public Color CellColor
         {
             get
@@ -54,7 +62,7 @@ namespace Game_of_Life
                 cellColor = value;
             }
         }
-
+        //GetSet for Background Color
         public Color BGColor
         {
             set
@@ -66,7 +74,7 @@ namespace Game_of_Life
                 return graphicsPanel1.BackColor;
             }
         }
-
+        //GetSet for Neighbor count brush
         public Color TextColor
         {
             get
@@ -76,6 +84,29 @@ namespace Game_of_Life
             set
             {
                 BrushColor = value;
+            }
+        }
+        //GetSet for Universe X dimension
+        public int UniverseX
+        {
+            get
+            {
+                return universe.GetLength(0);
+            }
+            set
+            {
+                universalX = value;
+            }
+        }
+        public int UniverseY
+        {
+            get
+            {
+                return universe.GetLength(1);
+            }
+            set
+            {
+                universalY = value;
             }
         }
 
@@ -216,8 +247,6 @@ namespace Game_of_Life
 
         private void NextGeneration()
         {
-            bool[,] storage = new bool[20, 20];
-
             //Find Cells
             // Iterate through the universe in the y, top to bottom
             for (int y = 0; y < universe.GetLength(1); y++)
@@ -359,20 +388,41 @@ namespace Game_of_Life
         private void customizeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //Modal Settings form
-            Form2 settingsForm = new Form2();
+            ModalDialog settingsForm = new ModalDialog();
 
             settingsForm.GetCellColor = CellColor;
             settingsForm.GetBGColor = graphicsPanel1.BackColor;
             settingsForm.GetTextColor = BrushColor;
+            settingsForm.GetUniverseX = UniverseX;
+            settingsForm.GetUniverseY = UniverseY;
             
             DialogResult result = settingsForm.ShowDialog();
             if (result == DialogResult.OK)
             {
+                //Program Color's
                 CellColor = settingsForm.GetCellColor;
                 graphicsPanel1.BackColor = settingsForm.GetBGColor;
                 BrushColor = settingsForm.GetTextColor;
+                // Universe Dimensions
+                UniverseX = settingsForm.GetUniverseX;
+                UniverseY = settingsForm.GetUniverseY;
+
+                //build new universe
+                universe = new bool[UniverseX, UniverseY];
+                storage = new bool[UniverseX, UniverseY];
+
+                Properties.Settings.Default.CellColor = settingsForm.GetCellColor;
+                Properties.Settings.Default.BGColor = settingsForm.GetBGColor;
+                Properties.Settings.Default.TextColor = settingsForm.GetTextColor;
+
+                Properties.Settings.Default.Save();
             }
             graphicsPanel1.Invalidate();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

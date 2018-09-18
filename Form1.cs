@@ -15,7 +15,6 @@ namespace Game_of_Life
     {
         // The universe array
         bool[,] universe = new bool[20, 20];
-
         bool[,] storage;
 
         //Universe Dimensions
@@ -27,6 +26,8 @@ namespace Game_of_Life
         Color cellColor = Color.Gray;
         Color BrushColor = Color.Black;
 
+        //Current Seed
+        int seed;
 
         // The Timer class
         Timer timer = new Timer();
@@ -540,13 +541,61 @@ namespace Game_of_Life
 
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Random CurrentSeed = new Random();
-            int currentSeed = CurrentSeed.Next();
-            Random random = new Random(currentSeed);
+        }
 
-            toolStripTextBox1_currentSeed.Text = currentSeed.ToString();
+        private void timeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Random random = new Random();
+            seed = random.Next();
+            random = new Random(seed);
 
-            for(int y = 0; y < universe.GetLength(1); ++y)
+            toolStripTextBox1_currentSeed.Text = seed.ToString();
+
+            for (int y = 0; y < universe.GetLength(1); ++y)
+            {
+                for (int x = 0; x < universe.GetLength(0); ++x)
+                {
+                    int randSeed = random.Next() % 3;
+
+                    if (randSeed == 1)
+                        universe[x, y] = true;
+                    else
+                        universe[x, y] = false;
+                }
+            }
+
+            generations = 0;
+            graphicsPanel1.Invalidate();
+        }
+
+        private void currentSeedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            seed = Int32.Parse(toolStripTextBox1_currentSeed.Text);
+            Random random = new Random(seed);
+
+            for (int y = 0; y < universe.GetLength(1); ++y)
+            {
+                for (int x = 0; x < universe.GetLength(0); ++x)
+                {
+                    if (random.Next() % 3 == 1)
+                        universe[x, y] = true;
+                    else
+                        universe[x, y] = false;
+                }
+            }
+
+            generations = 0;
+            graphicsPanel1.Invalidate();
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            seed = Int32.Parse(toolStripTextBox1_currentSeed.Text);
+            Random random = new Random(seed);
+
+            //toolStripTextBox1_currentSeed.Text = seed.ToString();
+
+            for (int y = 0; y < universe.GetLength(1); ++y)
             {
                 for (int x = 0; x < universe.GetLength(0); ++x)
                 {

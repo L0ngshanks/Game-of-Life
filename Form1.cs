@@ -13,7 +13,6 @@ namespace Game_of_Life
 {
     public partial class Form1 : Form
     {
-
         // The universe array
         bool[,] universe = new bool[20, 20];
 
@@ -384,7 +383,7 @@ namespace Game_of_Life
             settingsForm.GetTextColor = BrushColor;
             settingsForm.GetUniverseX = universalX;
             settingsForm.GetUniverseY = universalY;
-            
+
             DialogResult result = settingsForm.ShowDialog();
             if (result == DialogResult.OK)
             {
@@ -397,7 +396,7 @@ namespace Game_of_Life
                 universalY = settingsForm.GetUniverseY;
 
                 universe = new bool[universalX, universalY];
-                
+
 
                 //Push data to Settings
                 Properties.Settings.Default.CellColor = settingsForm.GetCellColor;
@@ -436,13 +435,13 @@ namespace Game_of_Life
 
                 // Iterate through the universe one row at a time.
                 for (int y = 0; y < universe.GetLength(1); y++)
-     {
+                {
                     // Create a string to represent the current row.
                     String currentRow = string.Empty;
 
                     // Iterate through the current row one cell at a time.
                     for (int x = 0; x < universe.GetLength(0); x++)
-          {
+                    {
                         // If the universe[x,y] is alive then append 'O' (capital O)
                         // to the row string.
                         if (universe[x, y])
@@ -472,7 +471,7 @@ namespace Game_of_Life
             if (DialogResult.OK == dlg.ShowDialog())
             {
                 StreamReader reader = new StreamReader(dlg.FileName);
-
+                int y = 0;
                 // Create a couple variables to calculate the width and height
                 // of the data in the file.
                 int maxWidth = 0;
@@ -518,25 +517,48 @@ namespace Game_of_Life
 
                     // If the row is not a comment then 
                     // it is a row of cells and needs to be iterated through.
-                    for (int y = 0; y < maxHeight; ++y)
+                    for (int xPos = 0; xPos < row.Length; xPos++)
                     {
-                        for (int xPos = 0; xPos < row.Length; xPos++)
-                        {
-                            // If row[xPos] is a 'O' (capital O) then
-                            // set the corresponding cell in the universe to alive.
-                            if (row[xPos] == 'O')
-                                universe[xPos, y] = true;
-                            // If row[xPos] is a '.' (period) then
-                            // set the corresponding cell in the universe to dead.
-                            else if (row[xPos] == '.')
-                                universe[xPos, y] = false;
-                        }
+                        // If row[xPos] is a 'O' (capital O) then
+                        // set the corresponding cell in the universe to alive.
+                        if (row[xPos] == 'O')
+                            universe[xPos, y] = true;
+                        // If row[xPos] is a '.' (period) then
+                        // set the corresponding cell in the universe to dead.
+                        else if (row[xPos] == '.')
+                            universe[xPos, y] = false;
                     }
+                    y++;
                 }
 
                 // Close the file.
                 reader.Close();
             }
+
+            graphicsPanel1.Invalidate();
+        }
+
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Random CurrentSeed = new Random();
+            int currentSeed = CurrentSeed.Next();
+            Random random = new Random(currentSeed);
+
+            toolStripTextBox1_currentSeed.Text = currentSeed.ToString();
+
+            for(int y = 0; y < universe.GetLength(1); ++y)
+            {
+                for (int x = 0; x < universe.GetLength(0); ++x)
+                {
+                    if (random.Next() % 3 == 1)
+                        universe[x, y] = true;
+                    else
+                        universe[x, y] = false;
+                }
+            }
+
+            generations = 0;
+            graphicsPanel1.Invalidate();
         }
     }
 }

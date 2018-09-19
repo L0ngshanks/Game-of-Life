@@ -16,6 +16,9 @@ namespace Game_of_Life
         //isAlive
         uint isAlive = 0;
 
+        //Timer Interval
+        int timerInterval = 5;
+
         // The universe array
         bool[,] universe = new bool[20, 20];
         bool[,] storage;
@@ -45,17 +48,21 @@ namespace Game_of_Life
         {
             InitializeComponent();
 
-            //Setup Timer
-            timer.Enabled = false;
-            timer.Interval = 5;
-            timer.Tick += Timer_Tick;
-
             //Settings Load
             CellColor = Properties.Settings.Default.CellColor;
             BGColor = Properties.Settings.Default.BGColor;
             TextColor = Properties.Settings.Default.TextColor;
             universalX = Properties.Settings.Default.UniverseX;
             universalY = Properties.Settings.Default.UniverseY;
+            timerInterval = Properties.Settings.Default.TimerInterval;
+            seed = Properties.Settings.Default.CurrentSeed;
+            gridVisibleToolStripMenuItem.Checked = Properties.Settings.Default.GridVisible;
+            tsmi_NeighborCountVisible.Checked = Properties.Settings.Default.NCVisible;
+
+            //Setup Timer
+            timer.Enabled = false;
+            timer.Interval = timerInterval;
+            timer.Tick += Timer_Tick;
 
             universe = new bool[universalX, universalY];
         }
@@ -99,7 +106,6 @@ namespace Game_of_Life
         private void Timer_Tick(object sender, EventArgs e)
         {
             NextGeneration();
-
         }
 
         private int NeighborCount(int x, int y)
@@ -279,6 +285,21 @@ namespace Game_of_Life
             toolStripStatusLabel1isAlive.Text = "Alive = " + isAlive.ToString();
         }
 
+        private void PrintNeighborCount(object sender, PaintEventArgs e)
+        {
+
+            //Text Brush
+            SolidBrush txtBrush = new SolidBrush(BrushColor);
+
+            // The width and height of each cell in pixels
+            // Convert to Floats
+            float cellWidth = (float)graphicsPanel1.ClientSize.Width / (float)universe.GetLength(0);
+            float cellHeight = (float)graphicsPanel1.ClientSize.Height / (float)universe.GetLength(1);
+
+
+            graphicsPanel1.Invalidate();
+        }
+
         private void graphicsPanel1_Paint(object sender, PaintEventArgs e)
         {
             // Print Neighbors
@@ -298,7 +319,6 @@ namespace Game_of_Life
             //Text Brush
             SolidBrush txtBrush = new SolidBrush(BrushColor);
 
-
             // Iterate through the universe in the y, top to bottom
             for (int y = 0; y < universe.GetLength(1); y++)
             {
@@ -317,10 +337,13 @@ namespace Game_of_Life
                     if (universe[x, y])
                         e.Graphics.FillRectangle(cellBrush, cellRect);
 
-                    if(tsmi_NeighborCountVisible.Checked)
+                    if (tsmi_NeighborCountVisible.Checked)
                     {
+                        cellRect.Width = cellWidth;
+                        cellRect.Height = cellHeight;
+
                         // Print neighbor count to rectangle
-                        Font font = new Font("Arial", (cellWidth / 2) - 5);
+                        Font font = new Font("Arial", (cellWidth / 2) - 2);
 
                         StringFormat stringFormat = new StringFormat();
                         stringFormat.Alignment = StringAlignment.Center;
@@ -328,10 +351,10 @@ namespace Game_of_Life
 
                         //Rectangle rect = new Rectangle(0, 0, 100, 100);
                         printNeighbors = NeighborCount(x, y);
-
-                        e.Graphics.DrawString(printNeighbors.ToString(), font, txtBrush, cellRect, stringFormat);
-
+                        if (printNeighbors != 0)
+                            e.Graphics.DrawString(printNeighbors.ToString(), font, txtBrush, cellRect, stringFormat);
                     }
+
 
                     // Outline the cell with a pen
                     if (gridVisibleToolStripMenuItem.Checked)
@@ -342,11 +365,11 @@ namespace Game_of_Life
                         isAlive++;
                 }
             }
+
             LivingCellCout();
 
             toolStripStatusGenerations.Text = "Generations = " + generations.ToString();
 
-            graphicsPanel1.Invalidate();
 
             // Cleaning up pens and brushes
             gridPen.Dispose();
@@ -414,6 +437,7 @@ namespace Game_of_Life
             settingsForm.GetTextColor = BrushColor;
             settingsForm.GetUniverseX = universalX;
             settingsForm.GetUniverseY = universalY;
+            settingsForm.TimerInterval = timerInterval;
 
             DialogResult result = settingsForm.ShowDialog();
             if (result == DialogResult.OK)
@@ -428,6 +452,8 @@ namespace Game_of_Life
 
                 universe = new bool[universalX, universalY];
 
+                //Timer Interval
+                timerInterval = settingsForm.TimerInterval;
 
                 //Push data to Settings
                 Properties.Settings.Default.CellColor = settingsForm.GetCellColor;
@@ -435,6 +461,7 @@ namespace Game_of_Life
                 Properties.Settings.Default.TextColor = settingsForm.GetTextColor;
                 Properties.Settings.Default.UniverseX = settingsForm.GetUniverseX;
                 Properties.Settings.Default.UniverseY = settingsForm.GetUniverseY;
+                Properties.Settings.Default.TimerInterval = settingsForm.TimerInterval;
 
                 //Save Settings
                 Properties.Settings.Default.Save();
@@ -644,7 +671,7 @@ namespace Game_of_Life
             if (result == DialogResult.OK)
             {
                 Random random = new Random(Int32.Parse(NewSeed.GetNewSeed));
-
+                seed = Int32.Parse(NewSeed.GetNewSeed);
                 for (int y = 0; y < universe.GetLength(1); ++y)
                 {
                     for (int x = 0; x < universe.GetLength(0); ++x)

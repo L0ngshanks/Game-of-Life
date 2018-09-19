@@ -46,6 +46,9 @@
             this.numericUpDown2UniversalY = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.numericUpDown1UniversalX = new System.Windows.Forms.NumericUpDown();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.nud_TimerInterval = new System.Windows.Forms.NumericUpDown();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -56,6 +59,8 @@
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2UniversalY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1UniversalX)).BeginInit();
+            this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_TimerInterval)).BeginInit();
             this.SuspendLayout();
             // 
             // button1Cancel
@@ -177,6 +182,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.groupBox6);
             this.tabPage2.Controls.Add(this.groupBox5);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
@@ -257,6 +263,33 @@
             0});
             this.numericUpDown1UniversalX.ValueChanged += new System.EventHandler(this.numericUpDown1UniversalX_ValueChanged);
             // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.nud_TimerInterval);
+            this.groupBox6.Controls.Add(this.label3);
+            this.groupBox6.Location = new System.Drawing.Point(9, 124);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(227, 54);
+            this.groupBox6.TabIndex = 1;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Time Interval";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(2, 21);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(71, 13);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Timer Interval";
+            // 
+            // nud_TimerInterval
+            // 
+            this.nud_TimerInterval.Location = new System.Drawing.Point(79, 19);
+            this.nud_TimerInterval.Name = "nud_TimerInterval";
+            this.nud_TimerInterval.Size = new System.Drawing.Size(120, 20);
+            this.nud_TimerInterval.TabIndex = 1;
+            // 
             // ModalDialog
             // 
             this.AcceptButton = this.button2Ok;
@@ -285,6 +318,9 @@
             this.groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2UniversalY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1UniversalX)).EndInit();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_TimerInterval)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -309,5 +345,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.NumericUpDown numericUpDown1UniversalX;
         private System.Windows.Forms.CheckBox checkBox1syncXY;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.NumericUpDown nud_TimerInterval;
+        private System.Windows.Forms.Label label3;
     }
 }

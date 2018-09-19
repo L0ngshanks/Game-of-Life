@@ -76,6 +76,18 @@ namespace Game_of_Life
             }
         }
 
+        public int TimerInterval
+        {
+            get
+            {
+                return (int)nud_TimerInterval.Value;
+            }
+            set
+            {
+                nud_TimerInterval.Value = value;
+            }
+        }
+
         private void button1CellColor_Click(object sender, EventArgs e)
         {
             ColorDialog dlgCell = new ColorDialog();

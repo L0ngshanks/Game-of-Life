@@ -609,5 +609,30 @@ namespace Game_of_Life
             generations = 0;
             graphicsPanel1.Invalidate();
         }
+
+        private void newSeedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form2 NewSeed = new Form2();
+
+            DialogResult result = NewSeed.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                Random random = new Random(Int32.Parse(NewSeed.GetNewSeed));
+
+                for (int y = 0; y < universe.GetLength(1); ++y)
+                {
+                    for (int x = 0; x < universe.GetLength(0); ++x)
+                    {
+                        if (random.Next() % 3 == 1)
+                            universe[x, y] = true;
+                        else
+                            universe[x, y] = false;
+                    }
+                }
+                toolStripTextBox1_currentSeed.Text = NewSeed.GetNewSeed;
+                generations = 0;
+                graphicsPanel1.Invalidate();
+            }
+        }
     }
 }

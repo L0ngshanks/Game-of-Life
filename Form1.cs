@@ -13,6 +13,9 @@ namespace Game_of_Life
 {
     public partial class Form1 : Form
     {
+        //isAlive
+        uint isAlive = 0;
+
         // The universe array
         bool[,] universe = new bool[20, 20];
         bool[,] storage;
@@ -96,6 +99,7 @@ namespace Game_of_Life
         private void Timer_Tick(object sender, EventArgs e)
         {
             NextGeneration();
+
         }
 
         private int NeighborCount(int x, int y)
@@ -259,6 +263,22 @@ namespace Game_of_Life
             graphicsPanel1.Invalidate();
         }
 
+        private void LivingCellCout()
+        {
+            isAlive = 0;
+
+            for (int y = 0; y < universe.GetLength(1); ++y)
+            {
+                for (int x = 0; x < universe.GetLength(0); ++x)
+                {
+                    if (universe[x, y])
+                        isAlive++;
+                }
+            }
+
+            toolStripStatusLabel1isAlive.Text = "Alive = " + isAlive.ToString();
+        }
+
         private void graphicsPanel1_Paint(object sender, PaintEventArgs e)
         {
             // Print Neighbors
@@ -297,26 +317,36 @@ namespace Game_of_Life
                     if (universe[x, y])
                         e.Graphics.FillRectangle(cellBrush, cellRect);
 
-                    // Print neighbor count to rectangle
-                    Font font = new Font("Arial", (cellWidth / 2) - 5);
+                    if(tsmi_NeighborCountVisible.Checked)
+                    {
+                        // Print neighbor count to rectangle
+                        Font font = new Font("Arial", (cellWidth / 2) - 5);
 
-                    StringFormat stringFormat = new StringFormat();
-                    stringFormat.Alignment = StringAlignment.Center;
-                    stringFormat.LineAlignment = StringAlignment.Center;
+                        StringFormat stringFormat = new StringFormat();
+                        stringFormat.Alignment = StringAlignment.Center;
+                        stringFormat.LineAlignment = StringAlignment.Center;
 
-                    //Rectangle rect = new Rectangle(0, 0, 100, 100);
-                    printNeighbors = NeighborCount(x, y);
+                        //Rectangle rect = new Rectangle(0, 0, 100, 100);
+                        printNeighbors = NeighborCount(x, y);
 
-                    e.Graphics.DrawString(printNeighbors.ToString(), font, txtBrush, cellRect, stringFormat);
+                        e.Graphics.DrawString(printNeighbors.ToString(), font, txtBrush, cellRect, stringFormat);
 
+                    }
 
                     // Outline the cell with a pen
-                    e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
+                    if (gridVisibleToolStripMenuItem.Checked)
+                        e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
 
+                    //Get Alive Cell count
+                    if (universe[x, y])
+                        isAlive++;
                 }
             }
+            LivingCellCout();
 
             toolStripStatusGenerations.Text = "Generations = " + generations.ToString();
+
+            graphicsPanel1.Invalidate();
 
             // Cleaning up pens and brushes
             gridPen.Dispose();
@@ -537,10 +567,6 @@ namespace Game_of_Life
             }
 
             graphicsPanel1.Invalidate();
-        }
-
-        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
         }
 
         private void timeToolStripMenuItem_Click(object sender, EventArgs e)

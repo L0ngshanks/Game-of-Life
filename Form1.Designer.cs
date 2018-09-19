@@ -69,6 +69,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusGenerations = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1isAlive = new System.Windows.Forms.ToolStripStatusLabel();
+            this.headsUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.graphicsPanel1 = new Game_of_Life.GraphicsPanel();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -166,7 +167,8 @@
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.gridVisibleToolStripMenuItem,
-            this.tsmi_NeighborCountVisible});
+            this.tsmi_NeighborCountVisible,
+            this.headsUpToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "View";
@@ -413,6 +415,16 @@
             this.toolStripStatusLabel1isAlive.Size = new System.Drawing.Size(81, 17);
             this.toolStripStatusLabel1isAlive.Text = "Alive Cells = 0";
             // 
+            // headsUpToolStripMenuItem
+            // 
+            this.headsUpToolStripMenuItem.Checked = true;
+            this.headsUpToolStripMenuItem.CheckOnClick = true;
+            this.headsUpToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.headsUpToolStripMenuItem.Name = "headsUpToolStripMenuItem";
+            this.headsUpToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.headsUpToolStripMenuItem.Text = "Heads Up Visible";
+            this.headsUpToolStripMenuItem.Click += new System.EventHandler(this.headsUpToolStripMenuItem_Click);
+            // 
             // graphicsPanel1
             // 
             this.graphicsPanel1.BackColor = System.Drawing.SystemColors.Window;
@@ -490,6 +502,7 @@
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tsmi_NeighborCountVisible;
         private System.Windows.Forms.ToolStripMenuItem gridVisibleToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem headsUpToolStripMenuItem;
     }
 }
 

@@ -33,7 +33,6 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.button1Dead = new System.Windows.Forms.Button();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
@@ -56,10 +55,11 @@
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.rb_Finite = new System.Windows.Forms.RadioButton();
             this.rb_Toroidal = new System.Windows.Forms.RadioButton();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.button1GridColor = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -72,6 +72,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1UniversalX)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.groupBox9.SuspendLayout();
+            this.groupBox10.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1Cancel
@@ -125,33 +126,24 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.groupBox4);
+            this.groupBox1.Controls.Add(this.groupBox8);
+            this.groupBox1.Controls.Add(this.groupBox10);
             this.groupBox1.Controls.Add(this.groupBox3);
+            this.groupBox1.Controls.Add(this.groupBox7);
             this.groupBox1.Controls.Add(this.groupBox2);
-            this.groupBox1.Location = new System.Drawing.Point(6, 6);
+            this.groupBox1.Location = new System.Drawing.Point(33, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(166, 267);
+            this.groupBox1.Size = new System.Drawing.Size(166, 318);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Color";
             // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.groupBox8);
-            this.groupBox4.Controls.Add(this.groupBox7);
-            this.groupBox4.Location = new System.Drawing.Point(6, 139);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(154, 122);
-            this.groupBox4.TabIndex = 2;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Text";
-            // 
             // groupBox8
             // 
             this.groupBox8.Controls.Add(this.button1Dead);
-            this.groupBox8.Location = new System.Drawing.Point(7, 68);
+            this.groupBox8.Location = new System.Drawing.Point(6, 253);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(140, 48);
+            this.groupBox8.Size = new System.Drawing.Size(154, 48);
             this.groupBox8.TabIndex = 3;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Dead";
@@ -160,7 +152,7 @@
             // 
             this.button1Dead.Location = new System.Drawing.Point(5, 19);
             this.button1Dead.Name = "button1Dead";
-            this.button1Dead.Size = new System.Drawing.Size(128, 23);
+            this.button1Dead.Size = new System.Drawing.Size(143, 23);
             this.button1Dead.TabIndex = 1;
             this.button1Dead.UseVisualStyleBackColor = true;
             this.button1Dead.Click += new System.EventHandler(this.button1Dead_Click);
@@ -168,9 +160,9 @@
             // groupBox7
             // 
             this.groupBox7.Controls.Add(this.button3Alive);
-            this.groupBox7.Location = new System.Drawing.Point(6, 19);
+            this.groupBox7.Location = new System.Drawing.Point(6, 199);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(140, 48);
+            this.groupBox7.Size = new System.Drawing.Size(154, 48);
             this.groupBox7.TabIndex = 2;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Alive";
@@ -179,7 +171,7 @@
             // 
             this.button3Alive.Location = new System.Drawing.Point(6, 19);
             this.button3Alive.Name = "button3Alive";
-            this.button3Alive.Size = new System.Drawing.Size(128, 23);
+            this.button3Alive.Size = new System.Drawing.Size(142, 23);
             this.button3Alive.TabIndex = 0;
             this.button3Alive.UseVisualStyleBackColor = true;
             this.button3Alive.Click += new System.EventHandler(this.button3Alive_Click);
@@ -376,6 +368,25 @@
             this.rb_Toroidal.Text = "Toroidal";
             this.rb_Toroidal.UseVisualStyleBackColor = true;
             // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.button1GridColor);
+            this.groupBox10.Location = new System.Drawing.Point(6, 139);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(154, 54);
+            this.groupBox10.TabIndex = 3;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "GridColor";
+            // 
+            // button1GridColor
+            // 
+            this.button1GridColor.Location = new System.Drawing.Point(7, 19);
+            this.button1GridColor.Name = "button1GridColor";
+            this.button1GridColor.Size = new System.Drawing.Size(141, 23);
+            this.button1GridColor.TabIndex = 0;
+            this.button1GridColor.UseVisualStyleBackColor = true;
+            this.button1GridColor.Click += new System.EventHandler(this.button1GridColor_Click);
+            // 
             // ModalDialog
             // 
             this.AcceptButton = this.button2Ok;
@@ -396,7 +407,6 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
@@ -412,6 +422,7 @@
             this.tabPage3.ResumeLayout(false);
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
+            this.groupBox10.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -424,7 +435,6 @@
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Button button3Alive;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button button2BGColor;
@@ -446,5 +456,7 @@
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.RadioButton rb_Toroidal;
         private System.Windows.Forms.RadioButton rb_Finite;
+        private System.Windows.Forms.GroupBox groupBox10;
+        private System.Windows.Forms.Button button1GridColor;
     }
 }

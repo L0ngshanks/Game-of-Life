@@ -65,6 +65,18 @@ namespace Game_of_Life
             }
         }
 
+        public Color GridColor
+        {
+            get
+            {
+                return button1GridColor.BackColor;
+            }
+            set
+            {
+                button1GridColor.BackColor = value;
+            }
+        }
+
         public bool Finite
         {
             get
@@ -199,13 +211,25 @@ namespace Game_of_Life
         {
             ColorDialog dlgTextColor = new ColorDialog();
 
-            dlgTextColor.Color = button3Alive.BackColor;
+            dlgTextColor.Color = button1Dead.BackColor;
 
             if (DialogResult.OK == dlgTextColor.ShowDialog())
             {
                 button1Dead.BackColor = dlgTextColor.Color;
             }
 
+        }
+
+        private void button1GridColor_Click(object sender, EventArgs e)
+        {
+            ColorDialog dlgGridColor = new ColorDialog();
+
+            dlgGridColor.Color = button1GridColor.BackColor;
+
+            if (DialogResult.OK == dlgGridColor.ShowDialog())
+            {
+                button1GridColor.BackColor = dlgGridColor.Color;
+            }
         }
     }
 }

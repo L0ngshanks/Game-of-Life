@@ -166,5 +166,17 @@ namespace Game_of_Life.Properties {
                 this["Toroidal"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Gainsboro")]
+        public global::System.Drawing.Color GridColor {
+            get {
+                return ((global::System.Drawing.Color)(this["GridColor"]));
+            }
+            set {
+                this["GridColor"] = value;
+            }
+        }
     }
 }

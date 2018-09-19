@@ -49,13 +49,13 @@ namespace Game_of_Life.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Black")]
-        public global::System.Drawing.Color TextColor {
+        [global::System.Configuration.DefaultSettingValueAttribute("Green")]
+        public global::System.Drawing.Color AliveColor {
             get {
-                return ((global::System.Drawing.Color)(this["TextColor"]));
+                return ((global::System.Drawing.Color)(this["AliveColor"]));
             }
             set {
-                this["TextColor"] = value;
+                this["AliveColor"] = value;
             }
         }
         
@@ -128,6 +128,42 @@ namespace Game_of_Life.Properties {
             }
             set {
                 this["TimerInterval"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Red")]
+        public global::System.Drawing.Color DeadColor {
+            get {
+                return ((global::System.Drawing.Color)(this["DeadColor"]));
+            }
+            set {
+                this["DeadColor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool Finite {
+            get {
+                return ((bool)(this["Finite"]));
+            }
+            set {
+                this["Finite"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Toroidal {
+            get {
+                return ((bool)(this["Toroidal"]));
+            }
+            set {
+                this["Toroidal"] = value;
             }
         }
     }

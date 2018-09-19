@@ -8,8 +8,8 @@
     <Setting Name="BGColor" Type="System.Drawing.Color" Scope="User">
       <Value Profile="(Default)">White</Value>
     </Setting>
-    <Setting Name="TextColor" Type="System.Drawing.Color" Scope="User">
-      <Value Profile="(Default)">Black</Value>
+    <Setting Name="AliveColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Green</Value>
     </Setting>
     <Setting Name="UniverseX" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">20</Value>
@@ -28,6 +28,15 @@
     </Setting>
     <Setting Name="TimerInterval" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">20</Value>
+    </Setting>
+    <Setting Name="DeadColor" Type="System.Drawing.Color" Scope="User">
+      <Value Profile="(Default)">Red</Value>
+    </Setting>
+    <Setting Name="Finite" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="Toroidal" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

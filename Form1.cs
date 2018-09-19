@@ -13,6 +13,10 @@ namespace Game_of_Life
 {
     public partial class Form1 : Form
     {
+        //Universe Type
+        bool finite = true;
+        bool toroidal = false;
+
         //isAlive
         uint isAlive = 0;
 
@@ -30,7 +34,8 @@ namespace Game_of_Life
         // Drawing colors
         Color gridColor = Color.Black;
         Color cellColor = Color.Gray;
-        Color BrushColor = Color.Black;
+        Color AliveColor = Color.Green;
+        Color DeadColor = Color.Red;
 
         //Current Seed
         int seed;
@@ -51,13 +56,16 @@ namespace Game_of_Life
             //Settings Load
             CellColor = Properties.Settings.Default.CellColor;
             BGColor = Properties.Settings.Default.BGColor;
-            TextColor = Properties.Settings.Default.TextColor;
+            AliveColor = Properties.Settings.Default.AliveColor;
+            DeadColor = Properties.Settings.Default.DeadColor;
             universalX = Properties.Settings.Default.UniverseX;
             universalY = Properties.Settings.Default.UniverseY;
             timerInterval = Properties.Settings.Default.TimerInterval;
             seed = Properties.Settings.Default.CurrentSeed;
             gridVisibleToolStripMenuItem.Checked = Properties.Settings.Default.GridVisible;
             tsmi_NeighborCountVisible.Checked = Properties.Settings.Default.NCVisible;
+            finite = Properties.Settings.Default.Finite;
+            toroidal = Properties.Settings.Default.Toroidal;
 
             //Setup Timer
             timer.Enabled = false;
@@ -88,18 +96,6 @@ namespace Game_of_Life
             get
             {
                 return graphicsPanel1.BackColor;
-            }
-        }
-        //GetSet for Neighbor count brush
-        public Color TextColor
-        {
-            get
-            {
-                return BrushColor;
-            }
-            set
-            {
-                BrushColor = value;
             }
         }
 
@@ -285,20 +281,20 @@ namespace Game_of_Life
             toolStripStatusLabel1isAlive.Text = "Alive = " + isAlive.ToString();
         }
 
-        private void PrintNeighborCount(object sender, PaintEventArgs e)
-        {
+        //private void PrintNeighborCount(object sender, PaintEventArgs e)
+        //{
 
-            //Text Brush
-            SolidBrush txtBrush = new SolidBrush(BrushColor);
+        //    //Text Brush
+        //    SolidBrush txtBrush = new SolidBrush(BrushColor);
 
-            // The width and height of each cell in pixels
-            // Convert to Floats
-            float cellWidth = (float)graphicsPanel1.ClientSize.Width / (float)universe.GetLength(0);
-            float cellHeight = (float)graphicsPanel1.ClientSize.Height / (float)universe.GetLength(1);
+        //    // The width and height of each cell in pixels
+        //    // Convert to Floats
+        //    float cellWidth = (float)graphicsPanel1.ClientSize.Width / (float)universe.GetLength(0);
+        //    float cellHeight = (float)graphicsPanel1.ClientSize.Height / (float)universe.GetLength(1);
 
 
-            graphicsPanel1.Invalidate();
-        }
+        //    graphicsPanel1.Invalidate();
+        //}
 
         private void graphicsPanel1_Paint(object sender, PaintEventArgs e)
         {
@@ -312,12 +308,14 @@ namespace Game_of_Life
 
             // A Pen for drawing the grid lines (color, width)
             Pen gridPen = new Pen(gridColor, 1);
+            Pen seperatorGridPen = new Pen(gridColor, 2);
 
             // A Brush
             Brush cellBrush = new SolidBrush(cellColor);
 
             //Text Brush
-            SolidBrush txtBrush = new SolidBrush(BrushColor);
+            SolidBrush AliveBrush = new SolidBrush(AliveColor);
+            SolidBrush DeadBrush = new SolidBrush(DeadColor);
 
             // Iterate through the universe in the y, top to bottom
             for (int y = 0; y < universe.GetLength(1); y++)
@@ -352,13 +350,20 @@ namespace Game_of_Life
                         //Rectangle rect = new Rectangle(0, 0, 100, 100);
                         printNeighbors = NeighborCount(x, y);
                         if (printNeighbors != 0)
-                            e.Graphics.DrawString(printNeighbors.ToString(), font, txtBrush, cellRect, stringFormat);
+                            if(universe[x,y])
+                                e.Graphics.DrawString(printNeighbors.ToString(), font, AliveBrush, cellRect, stringFormat);
+                            else
+                                e.Graphics.DrawString(printNeighbors.ToString(), font, DeadBrush, cellRect, stringFormat);
                     }
 
 
                     // Outline the cell with a pen
                     if (gridVisibleToolStripMenuItem.Checked)
+                    {
                         e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
+                        //if ((cellRect.X % 10 == 0) && (cellRect.Y % 10 == 0))
+                        //    e.Graphics.DrawRectangle(seperatorGridPen, cellRect.X, cellRect.Y, cellRect.Width * 10, cellRect.Height * 10);
+                    }
 
                     //Get Alive Cell count
                     if (universe[x, y])
@@ -369,8 +374,6 @@ namespace Game_of_Life
             LivingCellCout();
 
             toolStripStatusGenerations.Text = "Generations = " + generations.ToString();
-
-
             // Cleaning up pens and brushes
             gridPen.Dispose();
             cellBrush.Dispose();
@@ -434,10 +437,13 @@ namespace Game_of_Life
             //Get Data for Modal Form
             settingsForm.GetCellColor = CellColor;
             settingsForm.GetBGColor = graphicsPanel1.BackColor;
-            settingsForm.GetTextColor = BrushColor;
+            settingsForm.GetAliveColor = AliveColor;
+            settingsForm.DeadColor = DeadColor;
             settingsForm.GetUniverseX = universalX;
             settingsForm.GetUniverseY = universalY;
             settingsForm.TimerInterval = timerInterval;
+            settingsForm.Finite = finite;
+            settingsForm.Toroidal = toroidal;
 
             DialogResult result = settingsForm.ShowDialog();
             if (result == DialogResult.OK)
@@ -445,7 +451,8 @@ namespace Game_of_Life
                 //Program Color's
                 CellColor = settingsForm.GetCellColor;
                 graphicsPanel1.BackColor = settingsForm.GetBGColor;
-                BrushColor = settingsForm.GetTextColor;
+                AliveColor = settingsForm.GetAliveColor;
+                DeadColor = settingsForm.DeadColor;
                 // Universe Dimensions
                 universalX = settingsForm.GetUniverseX;
                 universalY = settingsForm.GetUniverseY;
@@ -455,13 +462,20 @@ namespace Game_of_Life
                 //Timer Interval
                 timerInterval = settingsForm.TimerInterval;
 
+                //universe Type
+                finite = settingsForm.Finite;
+                toroidal = settingsForm.Toroidal;
+
                 //Push data to Settings
                 Properties.Settings.Default.CellColor = settingsForm.GetCellColor;
                 Properties.Settings.Default.BGColor = settingsForm.GetBGColor;
-                Properties.Settings.Default.TextColor = settingsForm.GetTextColor;
+                Properties.Settings.Default.AliveColor = settingsForm.GetAliveColor;
+                Properties.Settings.Default.DeadColor = settingsForm.DeadColor;
                 Properties.Settings.Default.UniverseX = settingsForm.GetUniverseX;
                 Properties.Settings.Default.UniverseY = settingsForm.GetUniverseY;
                 Properties.Settings.Default.TimerInterval = settingsForm.TimerInterval;
+                Properties.Settings.Default.Finite = settingsForm.Finite;
+                Properties.Settings.Default.Toroidal = settingsForm.Toroidal;
 
                 //Save Settings
                 Properties.Settings.Default.Save();

@@ -41,15 +41,51 @@ namespace Game_of_Life
             }
         }
 
-        public Color GetTextColor
+        public Color GetAliveColor
         {
             get
             {
-                return button3TextColor.BackColor;
+                return button3Alive.BackColor;
             }
             set
             {
-                button3TextColor.BackColor = value;
+                button3Alive.BackColor = value;
+            }
+        }
+
+        public Color DeadColor
+        {
+            get
+            {
+                return button1Dead.BackColor;
+            }
+            set
+            {
+                button1Dead.BackColor = value;
+            }
+        }
+
+        public bool Finite
+        {
+            get
+            {
+                return rb_Finite.Checked;
+            }
+            set
+            {
+                rb_Finite.Checked = value;
+            }
+        }
+
+        public bool Toroidal
+        {
+            get
+            {
+                return rb_Toroidal.Checked;
+            }
+            set
+            {
+                rb_Toroidal.Checked = value;
             }
         }
 
@@ -112,15 +148,15 @@ namespace Game_of_Life
             }
         }
 
-        private void button3TextColor_Click(object sender, EventArgs e)
+        private void button3Alive_Click(object sender, EventArgs e)
         {
             ColorDialog dlgTextColor = new ColorDialog();
 
-            dlgTextColor.Color = button3TextColor.BackColor;
+            dlgTextColor.Color = button3Alive.BackColor;
 
             if (DialogResult.OK == dlgTextColor.ShowDialog())
             {
-                button3TextColor.BackColor = dlgTextColor.Color;
+                button3Alive.BackColor = dlgTextColor.Color;
             }
         }
 
@@ -157,6 +193,19 @@ namespace Game_of_Life
             {
                 GetUniverseX = GetUniverseY;
             }
+        }
+
+        private void button1Dead_Click(object sender, EventArgs e)
+        {
+            ColorDialog dlgTextColor = new ColorDialog();
+
+            dlgTextColor.Color = button3Alive.BackColor;
+
+            if (DialogResult.OK == dlgTextColor.ShowDialog())
+            {
+                button1Dead.BackColor = dlgTextColor.Color;
+            }
+
         }
     }
 }

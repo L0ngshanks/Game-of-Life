@@ -133,6 +133,35 @@ namespace Game_of_Life
                 headsUpToolStripMenuItem.Checked = value;
             }
         }
+
+        public bool NeighborVisible
+        {
+            get
+            {
+                return neighborCountVisibleToolStripMenuItem.Checked;
+            }
+            set
+            {
+                neighborCountVisibleToolStripMenuItem.Checked = value;
+            }
+        }
+
+        public bool GridVisibility()
+        {
+            bool visible = true;
+            if (gridVisibleToolStripMenuItem.Checked)
+                visible = true;
+            else if (!gridVisibleToolStripMenuItem.Checked)
+                visible = false;
+            if (gridVisibleToolStripMenuItem1.Checked)
+                visible = true;
+            else if (!gridVisibleToolStripMenuItem1.Checked)
+                visible = false;
+            
+            return visible;
+        }
+        
+
         private void Timer_Tick(object sender, EventArgs e)
         {
             NextGeneration();
@@ -888,16 +917,22 @@ namespace Game_of_Life
 
         private void gridVisibleToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            gridVisibleToolStripMenuItem.Checked = !gridVisibleToolStripMenuItem.Checked;
+            gridVisibleToolStripMenuItem1.Checked = !gridVisibleToolStripMenuItem1.Checked;
             graphicsPanel1.Refresh();
         }
 
         private void tsmi_NeighborCountVisible_Click(object sender, EventArgs e)
         {
+            tsmi_NeighborCountVisible.Checked = !tsmi_NeighborCountVisible.Checked;
+            neighborCountVisibleToolStripMenuItem.Checked = !neighborCountVisibleToolStripMenuItem.Checked;
             graphicsPanel1.Refresh();
         }
 
         private void headsUpToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            headsUpToolStripMenuItem.Checked = !headsUpToolStripMenuItem.Checked;
+            headsUpDisplayVisibleToolStripMenuItem.Checked = !headsUpDisplayVisibleToolStripMenuItem.Checked;
             graphicsPanel1.Refresh();
         }
 
@@ -992,6 +1027,107 @@ namespace Game_of_Life
         }
 
         private void nextToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NextGeneration();
+            graphicsPanel1.Invalidate();
+        }
+
+        private void tsmi_Import_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.Filter = "All Files|*.*|Cells|*.cells";
+            dlg.FilterIndex = 2;
+
+            if (DialogResult.OK == dlg.ShowDialog())
+            {
+                StreamReader reader = new StreamReader(dlg.FileName);
+                int y = 0;
+                //// Create a couple variables to calculate the width and height
+                //// of the data in the file.
+                //int maxWidth = 0;
+                //int maxHeight = 0;
+
+                //// Iterate through the file once to get its size.
+                //while (!reader.EndOfStream)
+                //{
+                //    // Read one row at a time.
+                //    string row = reader.ReadLine();
+
+                //    // If the row begins with '!' then it is a comment
+                //    // and should be ignored.
+
+                //    if (row[0] == '!')
+                //        continue;
+                //    // If the row is not a comment then it is a row of cells.
+                //    // Increment the maxHeight variable for each row read.
+                //    else
+                //        maxHeight++;
+                //    // Get the length of the current row string
+                //    // and adjust the maxWidth variable if necessary.
+                //    maxWidth = row.Length;
+                //}
+
+                //// Resize the current universe and scratchPad
+                //// to the width and height of the file calculated above.
+                //universe = new bool[maxWidth, maxHeight];
+
+                //// Reset the file pointer back to the beginning of the file.
+                //reader.BaseStream.Seek(0, SeekOrigin.Begin);
+
+                // Iterate through the file again, this time reading in the cells.
+                while (!reader.EndOfStream)
+                {
+                    // Read one row at a time.
+                    string row = reader.ReadLine();
+
+                    // If the row begins with '!' then
+                    // it is a comment and should be ignored.
+                    if (row[0] == '!')
+                        continue;
+
+                    // If the row is not a comment then 
+                    // it is a row of cells and needs to be iterated through.
+                    for (int xPos = 0; xPos < row.Length; xPos++)
+                    {
+                        //Test for outside Universe Condition
+                        if(xPos < universe.GetLength(0) - 1 && y < universe.GetLength(1))
+                        {
+                            // If row[xPos] is a 'O' (capital O) then
+                            // set the corresponding cell in the universe to alive.
+                            if (row[xPos] == 'O')
+                                universe[xPos, y] = true;
+                            // If row[xPos] is a '.' (period) then
+                            // set the corresponding cell in the universe to dead.
+                            else if (row[xPos] == '.')
+                                universe[xPos, y] = false;
+                        }
+                    }
+                    y++;
+                }
+
+                // Close the file.
+                reader.Close();
+            }
+
+            graphicsPanel1.Invalidate();
+
+        }
+
+        private void playToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            timer.Enabled = true;
+            timer.Interval = timerInterval;
+            timer.Tick += Timer_Tick;
+        }
+
+        private void pauseToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            timer.Enabled = false;
+            timer.Interval = timerInterval;
+            timer.Tick += Timer_Tick;
+        }
+
+        private void nextToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             NextGeneration();
             graphicsPanel1.Invalidate();

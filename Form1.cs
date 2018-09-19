@@ -63,7 +63,7 @@ namespace Game_of_Life
             timerInterval = Properties.Settings.Default.TimerInterval;
             seed = Properties.Settings.Default.CurrentSeed;
             gridVisibleToolStripMenuItem.Checked = Properties.Settings.Default.GridVisible;
-            tsmi_NeighborCountVisible.Checked = Properties.Settings.Default.NCVisible;
+            CountVisible = Properties.Settings.Default.NCVisible;
             finite = Properties.Settings.Default.Finite;
             toroidal = Properties.Settings.Default.Toroidal;
 
@@ -99,125 +99,141 @@ namespace Game_of_Life
             }
         }
 
+        public bool CountVisible
+        {
+            get
+            {
+                return tsmi_NeighborCountVisible.Checked;
+            }
+            set
+            {
+                tsmi_NeighborCountVisible.Checked = value;
+            }
+        }
+
         private void Timer_Tick(object sender, EventArgs e)
         {
             NextGeneration();
         }
 
-        private int NeighborCount(int x, int y)
+        private int count(int x, int y)
         {
-            //Cycle threw the available neighors
-            int neighborCount = 0;
-
-            if (x == 0 && y == 0)
+            int count = 0;
+            if (finite)
             {
-                for (int k = 0; k <= 1; ++k)
+                if (x == 0 && y == 0)
                 {
-                    for (int j = 0; j <= 1; ++j)
+                    for (int k = 0; k <= 1; ++k)
                     {
-                        if (universe[x + j, y + k] && !(x + j == x && y + k == y))
-                            neighborCount += 1;
+                        for (int j = 0; j <= 1; ++j)
+                        {
+                            if (universe[x + j, y + k] && !(x + j == x && y + k == y))
+                                count += 1;
+                        }
+                    }
+                }
+                else if (x == universe.GetLength(0) - 1 && y == 0)
+                {
+                    for (int k = 0; k <= 1; ++k)
+                    {
+                        for (int j = -1; j <= 0; ++j)
+                        {
+                            if (universe[x + j, y + k] && !(x + j == x && y + k == y))
+                                count += 1;
+
+                        }
+                    }
+                }
+                else if (x == 0 && y == universe.GetLength(1) - 1)
+                {
+                    for (int k = -1; k <= 0; ++k)
+                    {
+                        for (int j = 0; j <= 1; ++j)
+                        {
+                            if (universe[x + j, y + k] && !(x + j == x && y + k == y))
+                                count += 1;
+
+                        }
+                    }
+                }
+                else if (x == universe.GetLength(0) - 1 && y == universe.GetLength(1) - 1)
+                {
+                    for (int k = -1; k <= 0; ++k)
+                    {
+                        for (int j = -1; j <= 0; ++j)
+                        {
+                            if (universe[x + j, y + k] && !(x + j == x && y + k == y))
+                                count += 1;
+
+                        }
+                    }
+                }
+                else if ((x < universe.GetLength(0) - 1 && y == 0))
+                {
+                    for (int k = 0; k <= 1; ++k)
+                    {
+                        for (int j = -1; j <= 1; ++j)
+                        {
+                            if (universe[x + j, y + k] && !(x + j == x && y + k == y))
+                                count += 1;
+
+                        }
+                    }
+                }
+                else if (x == 0 && y < universe.GetLength(1) - 1)
+                {
+                    for (int k = -1; k <= 1; ++k)
+                    {
+                        for (int j = 0; j <= 1; ++j)
+                        {
+                            if (universe[x + j, y + k] && !(x + j == x && y + k == y))
+                                count += 1;
+
+                        }
+                    }
+                }
+                else if (x == universe.GetLength(0) - 1 && y < universe.GetLength(1) - 1)
+                {
+                    for (int k = -1; k <= 1; ++k)
+                    {
+                        for (int j = -1; j <= 0; ++j)
+                        {
+                            if (universe[x + j, y + k] && !(x + j == x && y + k == y))
+                                count += 1;
+
+                        }
+                    }
+                }
+                else if (x > 0 && y == universe.GetLength(1) - 1)
+                {
+                    for (int k = -1; k <= 0; ++k)
+                    {
+                        for (int j = -1; j <= 1; ++j)
+                        {
+                            if (universe[x + j, y + k] && !(x + j == x && y + k == y))
+                                count += 1;
+
+                        }
+                    }
+                }
+                else if (x < universe.GetLength(0) - 1 && y < universe.GetLength(1) - 1)
+                {
+                    for (int k = -1; k <= 1; ++k)
+                    {
+                        for (int j = -1; j <= 1; ++j)
+                        {
+                            if (universe[x + j, y + k] && !(x + j == x && y + k == y))
+                                count += 1;
+
+                        }
                     }
                 }
             }
-            else if (x == universe.GetLength(0) - 1 && y == 0)
+            else if (toroidal)
             {
-                for (int k = 0; k <= 1; ++k)
-                {
-                    for (int j = -1; j <= 0; ++j)
-                    {
-                        if (universe[x + j, y + k] && !(x + j == x && y + k == y))
-                            neighborCount += 1;
-
-                    }
-                }
+                // Toroidal Universe code
             }
-            else if (x == 0 && y == universe.GetLength(1) - 1)
-            {
-                for (int k = -1; k <= 0; ++k)
-                {
-                    for (int j = 0; j <= 1; ++j)
-                    {
-                        if (universe[x + j, y + k] && !(x + j == x && y + k == y))
-                            neighborCount += 1;
-
-                    }
-                }
-            }
-            else if (x == universe.GetLength(0) - 1 && y == universe.GetLength(1) - 1)
-            {
-                for (int k = -1; k <= 0; ++k)
-                {
-                    for (int j = -1; j <= 0; ++j)
-                    {
-                        if (universe[x + j, y + k] && !(x + j == x && y + k == y))
-                            neighborCount += 1;
-
-                    }
-                }
-            }
-            else if ((x < universe.GetLength(0) - 1 && y == 0))
-            {
-                for (int k = 0; k <= 1; ++k)
-                {
-                    for (int j = -1; j <= 1; ++j)
-                    {
-                        if (universe[x + j, y + k] && !(x + j == x && y + k == y))
-                            neighborCount += 1;
-
-                    }
-                }
-            }
-            else if (x == 0 && y < universe.GetLength(1) - 1)
-            {
-                for (int k = -1; k <= 1; ++k)
-                {
-                    for (int j = 0; j <= 1; ++j)
-                    {
-                        if (universe[x + j, y + k] && !(x + j == x && y + k == y))
-                            neighborCount += 1;
-
-                    }
-                }
-            }
-            else if (x == universe.GetLength(0) - 1 && y < universe.GetLength(1) - 1)
-            {
-                for (int k = -1; k <= 1; ++k)
-                {
-                    for (int j = -1; j <= 0; ++j)
-                    {
-                        if (universe[x + j, y + k] && !(x + j == x && y + k == y))
-                            neighborCount += 1;
-
-                    }
-                }
-            }
-            else if (x > 0 && y == universe.GetLength(1) - 1)
-            {
-                for (int k = -1; k <= 0; ++k)
-                {
-                    for (int j = -1; j <= 1; ++j)
-                    {
-                        if (universe[x + j, y + k] && !(x + j == x && y + k == y))
-                            neighborCount += 1;
-
-                    }
-                }
-            }
-            else if (x < universe.GetLength(0) - 1 && y < universe.GetLength(1) - 1)
-            {
-                for (int k = -1; k <= 1; ++k)
-                {
-                    for (int j = -1; j <= 1; ++j)
-                    {
-                        if (universe[x + j, y + k] && !(x + j == x && y + k == y))
-                            neighborCount += 1;
-
-                    }
-                }
-            }
-
-            return neighborCount;
+            return count;
         }
 
         private bool[,] Rules(int x, int y, bool[,] ruleStorage, int counter)
@@ -247,7 +263,7 @@ namespace Game_of_Life
                 // Iterate through the universe in the x, left to right
                 for (int x = 0; x < universe.GetLength(0); x++)
                 {
-                    neighbors = NeighborCount(x, y);
+                    neighbors = count(x, y);
                     storage = Rules(x, y, storage, neighbors);
 
                     //Console.WriteLine("Cell: " + x + "," + y + " has " + neighbors + " neighbors");
@@ -280,21 +296,6 @@ namespace Game_of_Life
 
             toolStripStatusLabel1isAlive.Text = "Alive = " + isAlive.ToString();
         }
-
-        //private void PrintNeighborCount(object sender, PaintEventArgs e)
-        //{
-
-        //    //Text Brush
-        //    SolidBrush txtBrush = new SolidBrush(BrushColor);
-
-        //    // The width and height of each cell in pixels
-        //    // Convert to Floats
-        //    float cellWidth = (float)graphicsPanel1.ClientSize.Width / (float)universe.GetLength(0);
-        //    float cellHeight = (float)graphicsPanel1.ClientSize.Height / (float)universe.GetLength(1);
-
-
-        //    graphicsPanel1.Invalidate();
-        //}
 
         private void graphicsPanel1_Paint(object sender, PaintEventArgs e)
         {
@@ -335,8 +336,18 @@ namespace Game_of_Life
                     if (universe[x, y])
                         e.Graphics.FillRectangle(cellBrush, cellRect);
 
-                    if (tsmi_NeighborCountVisible.Checked)
+                    // Outline the cell with a pen
+                    if (gridVisibleToolStripMenuItem.Checked)
                     {
+                        e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
+                        //if ((cellRect.X % 10 == 0) && (cellRect.Y % 10 == 0))
+                        //    e.Graphics.DrawRectangle(seperatorGridPen, cellRect.X, cellRect.Y, cellRect.Width * 10, cellRect.Height * 10);
+                    }
+
+                    // Print Neighbors
+                    if (CountVisible)
+                    {
+
                         cellRect.Width = cellWidth;
                         cellRect.Height = cellHeight;
 
@@ -348,22 +359,14 @@ namespace Game_of_Life
                         stringFormat.LineAlignment = StringAlignment.Center;
 
                         //Rectangle rect = new Rectangle(0, 0, 100, 100);
-                        printNeighbors = NeighborCount(x, y);
+                        printNeighbors = count(x, y);
                         if (printNeighbors != 0)
-                            if(universe[x,y])
+                            if (universe[x, y])
                                 e.Graphics.DrawString(printNeighbors.ToString(), font, AliveBrush, cellRect, stringFormat);
                             else
                                 e.Graphics.DrawString(printNeighbors.ToString(), font, DeadBrush, cellRect, stringFormat);
                     }
 
-
-                    // Outline the cell with a pen
-                    if (gridVisibleToolStripMenuItem.Checked)
-                    {
-                        e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
-                        //if ((cellRect.X % 10 == 0) && (cellRect.Y % 10 == 0))
-                        //    e.Graphics.DrawRectangle(seperatorGridPen, cellRect.X, cellRect.Y, cellRect.Width * 10, cellRect.Height * 10);
-                    }
 
                     //Get Alive Cell count
                     if (universe[x, y])
@@ -700,6 +703,16 @@ namespace Game_of_Life
                 generations = 0;
                 graphicsPanel1.Invalidate();
             }
+        }
+
+        private void gridVisibleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            graphicsPanel1.Refresh();
+        }
+
+        private void tsmi_NeighborCountVisible_Click(object sender, EventArgs e)
+        {
+            graphicsPanel1.Refresh();
         }
     }
 }

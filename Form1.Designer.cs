@@ -39,6 +39,9 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gridVisibleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmi_NeighborCountVisible = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.customizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,9 +69,6 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusGenerations = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1isAlive = new System.Windows.Forms.ToolStripStatusLabel();
-            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmi_NeighborCountVisible = new System.Windows.Forms.ToolStripMenuItem();
-            this.gridVisibleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.graphicsPanel1 = new Game_of_Life.GraphicsPanel();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -161,6 +161,35 @@
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.gridVisibleToolStripMenuItem,
+            this.tsmi_NeighborCountVisible});
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.viewToolStripMenuItem.Text = "View";
+            // 
+            // gridVisibleToolStripMenuItem
+            // 
+            this.gridVisibleToolStripMenuItem.Checked = true;
+            this.gridVisibleToolStripMenuItem.CheckOnClick = true;
+            this.gridVisibleToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.gridVisibleToolStripMenuItem.Name = "gridVisibleToolStripMenuItem";
+            this.gridVisibleToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.gridVisibleToolStripMenuItem.Text = "Grid Visible";
+            this.gridVisibleToolStripMenuItem.Click += new System.EventHandler(this.gridVisibleToolStripMenuItem_Click);
+            // 
+            // tsmi_NeighborCountVisible
+            // 
+            this.tsmi_NeighborCountVisible.Checked = true;
+            this.tsmi_NeighborCountVisible.CheckOnClick = true;
+            this.tsmi_NeighborCountVisible.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.tsmi_NeighborCountVisible.Name = "tsmi_NeighborCountVisible";
+            this.tsmi_NeighborCountVisible.Size = new System.Drawing.Size(197, 22);
+            this.tsmi_NeighborCountVisible.Text = "Neighbor Count Visible";
+            this.tsmi_NeighborCountVisible.Click += new System.EventHandler(this.tsmi_NeighborCountVisible_Click);
             // 
             // toolsToolStripMenuItem
             // 
@@ -383,33 +412,6 @@
             this.toolStripStatusLabel1isAlive.Name = "toolStripStatusLabel1isAlive";
             this.toolStripStatusLabel1isAlive.Size = new System.Drawing.Size(81, 17);
             this.toolStripStatusLabel1isAlive.Text = "Alive Cells = 0";
-            // 
-            // viewToolStripMenuItem
-            // 
-            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.gridVisibleToolStripMenuItem,
-            this.tsmi_NeighborCountVisible});
-            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.viewToolStripMenuItem.Text = "View";
-            // 
-            // tsmi_NeighborCountVisible
-            // 
-            this.tsmi_NeighborCountVisible.Checked = true;
-            this.tsmi_NeighborCountVisible.CheckOnClick = true;
-            this.tsmi_NeighborCountVisible.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.tsmi_NeighborCountVisible.Name = "tsmi_NeighborCountVisible";
-            this.tsmi_NeighborCountVisible.Size = new System.Drawing.Size(197, 22);
-            this.tsmi_NeighborCountVisible.Text = "Neighbor Count Visible";
-            // 
-            // gridVisibleToolStripMenuItem
-            // 
-            this.gridVisibleToolStripMenuItem.Checked = true;
-            this.gridVisibleToolStripMenuItem.CheckOnClick = true;
-            this.gridVisibleToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.gridVisibleToolStripMenuItem.Name = "gridVisibleToolStripMenuItem";
-            this.gridVisibleToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
-            this.gridVisibleToolStripMenuItem.Text = "Grid Visible";
             // 
             // graphicsPanel1
             // 

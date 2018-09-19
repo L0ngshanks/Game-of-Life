@@ -70,8 +70,6 @@ namespace Game_of_Life
 
             //Setup Timer
             timer.Enabled = false;
-            timer.Interval = timerInterval;
-            timer.Tick += Timer_Tick;
 
             universe = new bool[universalX, universalY];
         }
@@ -608,11 +606,15 @@ namespace Game_of_Life
         private void toolStripButtonPlay_Click(object sender, EventArgs e)
         {
             timer.Enabled = true;
+            timer.Interval = timerInterval;
+            timer.Tick += Timer_Tick;
         }
 
         private void toolStripButtonPause_Click(object sender, EventArgs e)
         {
             timer.Enabled = false;
+            timer.Interval = timerInterval;
+            timer.Tick += Timer_Tick;
         }
 
         private void toolStripButtonNext_Click(object sender, EventArgs e)
@@ -660,27 +662,13 @@ namespace Game_of_Life
                 //universe Type
                 finite = settingsForm.Finite;
                 toroidal = settingsForm.Toroidal;
-
-                //Push data to Settings
-                Properties.Settings.Default.CellColor = settingsForm.GetCellColor;
-                Properties.Settings.Default.BGColor = settingsForm.GetBGColor;
-                Properties.Settings.Default.AliveColor = settingsForm.GetAliveColor;
-                Properties.Settings.Default.DeadColor = settingsForm.DeadColor;
-                Properties.Settings.Default.GridColor = settingsForm.GridColor;
-                Properties.Settings.Default.UniverseX = settingsForm.GetUniverseX;
-                Properties.Settings.Default.UniverseY = settingsForm.GetUniverseY;
-                Properties.Settings.Default.TimerInterval = settingsForm.TimerInterval;
-                Properties.Settings.Default.Finite = settingsForm.Finite;
-                Properties.Settings.Default.Toroidal = settingsForm.Toroidal;
-
-                //Save Settings
-                Properties.Settings.Default.Save();
             }
             graphicsPanel1.Invalidate();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
             Application.Exit();
         }
 
@@ -970,6 +958,43 @@ namespace Game_of_Life
 
             toolStripTextBox1_currentSeed.Text = seed.ToString();
             graphicsPanel1.Refresh();
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            //Push data to Settings
+            Properties.Settings.Default.CellColor = CellColor;
+            Properties.Settings.Default.BGColor = BGColor;
+            Properties.Settings.Default.AliveColor = AliveColor;
+            Properties.Settings.Default.DeadColor = DeadColor;
+            Properties.Settings.Default.GridColor = gridColor;
+            Properties.Settings.Default.UniverseX = universalX;
+            Properties.Settings.Default.UniverseY = universalY;
+            Properties.Settings.Default.TimerInterval = timerInterval;
+            Properties.Settings.Default.Finite = finite;
+            Properties.Settings.Default.Toroidal = toroidal;
+
+            Properties.Settings.Default.Save();
+        }
+
+        private void playToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            timer.Enabled = true;
+            timer.Interval = timerInterval;
+            timer.Tick += Timer_Tick;
+        }
+
+        private void pauseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            timer.Enabled = false;
+            timer.Interval = timerInterval;
+            timer.Tick += Timer_Tick;
+        }
+
+        private void nextToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NextGeneration();
+            graphicsPanel1.Invalidate();
         }
     }
 }

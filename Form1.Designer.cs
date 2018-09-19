@@ -73,8 +73,12 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusGenerations = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1isAlive = new System.Windows.Forms.ToolStripStatusLabel();
-            this.graphicsPanel1 = new Game_of_Life.GraphicsPanel();
             this.tsbGenerateSeed = new System.Windows.Forms.ToolStripButton();
+            this.runToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.playToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pauseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nextToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphicsPanel1 = new Game_of_Life.GraphicsPanel();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -86,6 +90,7 @@
             this.fileToolStripMenuItem,
             this.viewToolStripMenuItem,
             this.toolsToolStripMenuItem,
+            this.runToolStripMenuItem,
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -454,6 +459,50 @@
             this.toolStripStatusLabel1isAlive.Size = new System.Drawing.Size(81, 17);
             this.toolStripStatusLabel1isAlive.Text = "Alive Cells = 0";
             // 
+            // tsbGenerateSeed
+            // 
+            this.tsbGenerateSeed.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbGenerateSeed.Image = ((System.Drawing.Image)(resources.GetObject("tsbGenerateSeed.Image")));
+            this.tsbGenerateSeed.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbGenerateSeed.Name = "tsbGenerateSeed";
+            this.tsbGenerateSeed.Size = new System.Drawing.Size(86, 22);
+            this.tsbGenerateSeed.Text = "Generate Seed";
+            this.tsbGenerateSeed.Click += new System.EventHandler(this.tsbGenerateSeed_Click);
+            // 
+            // runToolStripMenuItem
+            // 
+            this.runToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.playToolStripMenuItem,
+            this.pauseToolStripMenuItem,
+            this.nextToolStripMenuItem});
+            this.runToolStripMenuItem.Name = "runToolStripMenuItem";
+            this.runToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+            this.runToolStripMenuItem.Text = "Run";
+            // 
+            // playToolStripMenuItem
+            // 
+            this.playToolStripMenuItem.Name = "playToolStripMenuItem";
+            this.playToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F7;
+            this.playToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.playToolStripMenuItem.Text = "Play";
+            this.playToolStripMenuItem.Click += new System.EventHandler(this.playToolStripMenuItem_Click);
+            // 
+            // pauseToolStripMenuItem
+            // 
+            this.pauseToolStripMenuItem.Name = "pauseToolStripMenuItem";
+            this.pauseToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F8;
+            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.pauseToolStripMenuItem.Text = "Pause";
+            this.pauseToolStripMenuItem.Click += new System.EventHandler(this.pauseToolStripMenuItem_Click);
+            // 
+            // nextToolStripMenuItem
+            // 
+            this.nextToolStripMenuItem.Name = "nextToolStripMenuItem";
+            this.nextToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F9;
+            this.nextToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.nextToolStripMenuItem.Text = "Next";
+            this.nextToolStripMenuItem.Click += new System.EventHandler(this.nextToolStripMenuItem_Click);
+            // 
             // graphicsPanel1
             // 
             this.graphicsPanel1.BackColor = System.Drawing.SystemColors.Window;
@@ -464,16 +513,6 @@
             this.graphicsPanel1.TabIndex = 3;
             this.graphicsPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanel1_Paint);
             this.graphicsPanel1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.graphicsPanel1_MouseClick);
-            // 
-            // tsbGenerateSeed
-            // 
-            this.tsbGenerateSeed.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.tsbGenerateSeed.Image = ((System.Drawing.Image)(resources.GetObject("tsbGenerateSeed.Image")));
-            this.tsbGenerateSeed.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.tsbGenerateSeed.Name = "tsbGenerateSeed";
-            this.tsbGenerateSeed.Size = new System.Drawing.Size(86, 22);
-            this.tsbGenerateSeed.Text = "Generate Seed";
-            this.tsbGenerateSeed.Click += new System.EventHandler(this.tsbGenerateSeed_Click);
             // 
             // Form1
             // 
@@ -487,6 +526,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "Game of Life";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.toolStrip1.ResumeLayout(false);
@@ -546,6 +586,10 @@
         private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reloadToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton tsbGenerateSeed;
+        private System.Windows.Forms.ToolStripMenuItem runToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem playToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem pauseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nextToolStripMenuItem;
     }
 }
 

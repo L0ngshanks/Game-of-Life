@@ -23,6 +23,10 @@ namespace Game_of_Life
             {
                 return numericUpDown1_NewSeed.Text;
             }
+            set
+            {
+                numericUpDown1_NewSeed.Text = value;
+            }
         }
 
         private void button1NewSeed_Click(object sender, EventArgs e)

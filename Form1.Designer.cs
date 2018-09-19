@@ -42,12 +42,16 @@
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gridVisibleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmi_NeighborCountVisible = new System.Windows.Forms.ToolStripMenuItem();
+            this.headsUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.customizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.timeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.currentSeedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newSeedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.indexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,11 +73,8 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusGenerations = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1isAlive = new System.Windows.Forms.ToolStripStatusLabel();
-            this.headsUpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.graphicsPanel1 = new Game_of_Life.GraphicsPanel();
-            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsbGenerateSeed = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -196,6 +197,16 @@
             this.tsmi_NeighborCountVisible.Text = "Neighbor Count Visible";
             this.tsmi_NeighborCountVisible.Click += new System.EventHandler(this.tsmi_NeighborCountVisible_Click);
             // 
+            // headsUpToolStripMenuItem
+            // 
+            this.headsUpToolStripMenuItem.Checked = true;
+            this.headsUpToolStripMenuItem.CheckOnClick = true;
+            this.headsUpToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.headsUpToolStripMenuItem.Name = "headsUpToolStripMenuItem";
+            this.headsUpToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.headsUpToolStripMenuItem.Text = "Heads Up Visible";
+            this.headsUpToolStripMenuItem.Click += new System.EventHandler(this.headsUpToolStripMenuItem_Click);
+            // 
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -243,6 +254,29 @@
             this.newSeedToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
             this.newSeedToolStripMenuItem.Text = "New Seed";
             this.newSeedToolStripMenuItem.Click += new System.EventHandler(this.newSeedToolStripMenuItem_Click);
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.resetToolStripMenuItem,
+            this.reloadToolStripMenuItem});
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.settingsToolStripMenuItem.Text = "Settings";
+            // 
+            // resetToolStripMenuItem
+            // 
+            this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.resetToolStripMenuItem.Text = "Reset";
+            this.resetToolStripMenuItem.Click += new System.EventHandler(this.resetToolStripMenuItem_Click);
+            // 
+            // reloadToolStripMenuItem
+            // 
+            this.reloadToolStripMenuItem.Name = "reloadToolStripMenuItem";
+            this.reloadToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.reloadToolStripMenuItem.Text = "Reload";
+            this.reloadToolStripMenuItem.Click += new System.EventHandler(this.reloadToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -298,7 +332,8 @@
             this.toolStripSeparator8,
             this.toolStripButton1,
             this.toolStripTextBox1_currentSeed,
-            this.toolStripSeparator3});
+            this.toolStripSeparator3,
+            this.tsbGenerateSeed});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(704, 25);
@@ -419,16 +454,6 @@
             this.toolStripStatusLabel1isAlive.Size = new System.Drawing.Size(81, 17);
             this.toolStripStatusLabel1isAlive.Text = "Alive Cells = 0";
             // 
-            // headsUpToolStripMenuItem
-            // 
-            this.headsUpToolStripMenuItem.Checked = true;
-            this.headsUpToolStripMenuItem.CheckOnClick = true;
-            this.headsUpToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.headsUpToolStripMenuItem.Name = "headsUpToolStripMenuItem";
-            this.headsUpToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
-            this.headsUpToolStripMenuItem.Text = "Heads Up Visible";
-            this.headsUpToolStripMenuItem.Click += new System.EventHandler(this.headsUpToolStripMenuItem_Click);
-            // 
             // graphicsPanel1
             // 
             this.graphicsPanel1.BackColor = System.Drawing.SystemColors.Window;
@@ -440,28 +465,15 @@
             this.graphicsPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanel1_Paint);
             this.graphicsPanel1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.graphicsPanel1_MouseClick);
             // 
-            // settingsToolStripMenuItem
+            // tsbGenerateSeed
             // 
-            this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.resetToolStripMenuItem,
-            this.reloadToolStripMenuItem});
-            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.settingsToolStripMenuItem.Text = "Settings";
-            // 
-            // resetToolStripMenuItem
-            // 
-            this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            this.resetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.resetToolStripMenuItem.Text = "Reset";
-            this.resetToolStripMenuItem.Click += new System.EventHandler(this.resetToolStripMenuItem_Click);
-            // 
-            // reloadToolStripMenuItem
-            // 
-            this.reloadToolStripMenuItem.Name = "reloadToolStripMenuItem";
-            this.reloadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.reloadToolStripMenuItem.Text = "Reload";
-            this.reloadToolStripMenuItem.Click += new System.EventHandler(this.reloadToolStripMenuItem_Click);
+            this.tsbGenerateSeed.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.tsbGenerateSeed.Image = ((System.Drawing.Image)(resources.GetObject("tsbGenerateSeed.Image")));
+            this.tsbGenerateSeed.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.tsbGenerateSeed.Name = "tsbGenerateSeed";
+            this.tsbGenerateSeed.Size = new System.Drawing.Size(86, 22);
+            this.tsbGenerateSeed.Text = "Generate Seed";
+            this.tsbGenerateSeed.Click += new System.EventHandler(this.tsbGenerateSeed_Click);
             // 
             // Form1
             // 
@@ -533,6 +545,7 @@
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reloadToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton tsbGenerateSeed;
     }
 }
 

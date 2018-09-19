@@ -876,7 +876,7 @@ namespace Game_of_Life
         private void newSeedToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form2 NewSeed = new Form2();
-
+            NewSeed.GetNewSeed = seed.ToString();
             DialogResult result = NewSeed.ShowDialog();
             if (result == DialogResult.OK)
             {
@@ -892,7 +892,7 @@ namespace Game_of_Life
                             universe[x, y] = false;
                     }
                 }
-                toolStripTextBox1_currentSeed.Text = NewSeed.GetNewSeed;
+                toolStripTextBox1_currentSeed.Text = seed.ToString();
                 generations = 0;
                 graphicsPanel1.Invalidate();
             }
@@ -960,6 +960,15 @@ namespace Game_of_Life
             //Universe Relaod
             universe = new bool[universalX, universalY];
 
+            graphicsPanel1.Refresh();
+        }
+
+        private void tsbGenerateSeed_Click(object sender, EventArgs e)
+        {
+            Random random = new Random();
+            seed = random.Next();
+
+            toolStripTextBox1_currentSeed.Text = seed.ToString();
             graphicsPanel1.Refresh();
         }
     }

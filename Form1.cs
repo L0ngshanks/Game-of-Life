@@ -140,7 +140,7 @@ namespace Game_of_Life
             NextGeneration();
         }
 
-        private int count(int x, int y)
+        private int NeighborCount(int x, int y)
         {
             int count = 0;
             if (finite)
@@ -256,6 +256,114 @@ namespace Game_of_Life
             else if (toroidal)
             {
                 // Toroidal Universe code
+                if (x == 0 && y == 0)
+                {
+                    for (int k = 0; k <= 1; ++k)
+                    {
+                        for (int j = 0; j <= 1; ++j)
+                        {
+                            if (universe[x + j, y + k] && !(x + j == x && y + k == y))
+                                count += 1;
+                        }
+                    }
+                }
+                else if (x == universe.GetLength(0) - 1 && y == 0)
+                {
+                    for (int k = 0; k <= 1; ++k)
+                    {
+                        for (int j = -1; j <= 0; ++j)
+                        {
+                            if (universe[x + j, y + k] && !(x + j == x && y + k == y))
+                                count += 1;
+
+                        }
+                    }
+                }
+                else if (x == 0 && y == universe.GetLength(1) - 1)
+                {
+                    for (int k = -1; k <= 0; ++k)
+                    {
+                        for (int j = 0; j <= 1; ++j)
+                        {
+                            if (universe[x + j, y + k] && !(x + j == x && y + k == y))
+                                count += 1;
+
+                        }
+                    }
+                }
+                else if (x == universe.GetLength(0) - 1 && y == universe.GetLength(1) - 1)
+                {
+                    for (int k = -1; k <= 0; ++k)
+                    {
+                        for (int j = -1; j <= 0; ++j)
+                        {
+                            if (universe[x + j, y + k] && !(x + j == x && y + k == y))
+                                count += 1;
+
+                        }
+                    }
+                }
+                else if ((x < universe.GetLength(0) - 1 && y == 0))
+                {
+                    for (int k = 0; k <= 1; ++k)
+                    {
+                        for (int j = -1; j <= 1; ++j)
+                        {
+                            if (universe[x + j, y + k] && !(x + j == x && y + k == y))
+                                count += 1;
+
+                        }
+                    }
+                }
+                else if (x == 0 && y < universe.GetLength(1) - 1)
+                {
+                    for (int k = -1; k <= 1; ++k)
+                    {
+                        for (int j = 0; j <= 1; ++j)
+                        {
+                            if (universe[x + j, y + k] && !(x + j == x && y + k == y))
+                                count += 1;
+
+                        }
+                    }
+                }
+                else if (x == universe.GetLength(0) - 1 && y < universe.GetLength(1) - 1)
+                {
+                    for (int k = -1; k <= 1; ++k)
+                    {
+                        for (int j = -1; j <= 0; ++j)
+                        {
+                            if (universe[x + j, y + k] && !(x + j == x && y + k == y))
+                                count += 1;
+
+                        }
+                    }
+                }
+                else if (x > 0 && y == universe.GetLength(1) - 1)
+                {
+                    for (int k = -1; k <= 0; ++k)
+                    {
+                        for (int j = -1; j <= 1; ++j)
+                        {
+                            if (universe[x + j, y + k] && !(x + j == x && y + k == y))
+                                count += 1;
+
+                        }
+                    }
+                }
+                else if (x < universe.GetLength(0) - 1 && y < universe.GetLength(1) - 1)
+                {
+                    for (int k = -1; k <= 1; ++k)
+                    {
+                        for (int j = -1; j <= 1; ++j)
+                        {
+                            if (universe[x + j, y + k] && !(x + j == x && y + k == y))
+                                count += 1;
+
+                        }
+                    }
+                }
+
             }
             return count;
         }
@@ -287,7 +395,7 @@ namespace Game_of_Life
                 // Iterate through the universe in the x, left to right
                 for (int x = 0; x < universe.GetLength(0); x++)
                 {
-                    neighbors = count(x, y);
+                    neighbors = NeighborCount(x, y);
                     storage = Rules(x, y, storage, neighbors);
 
                     //Console.WriteLine("Cell: " + x + "," + y + " has " + neighbors + " neighbors");
@@ -317,8 +425,6 @@ namespace Game_of_Life
                         isAlive++;
                 }
             }
-
-            toolStripStatusLabel1isAlive.Text = "Alive = " + isAlive.ToString();
         }
 
         private void graphicsPanel1_Paint(object sender, PaintEventArgs e)
@@ -383,20 +489,17 @@ namespace Game_of_Life
                         stringFormat.LineAlignment = StringAlignment.Center;
 
                         //Rectangle rect = new Rectangle(0, 0, 100, 100);
-                        printNeighbors = count(x, y);
+                        printNeighbors = NeighborCount(x, y);
                         if (printNeighbors != 0)
                             if (universe[x, y])
                                 e.Graphics.DrawString(printNeighbors.ToString(), font, AliveBrush, cellRect, stringFormat);
                             else
                                 e.Graphics.DrawString(printNeighbors.ToString(), font, DeadBrush, cellRect, stringFormat);
                     }
-
-                    //Heads Up Display
-                    //Get Alive Cell count
-                    if (universe[x, y])
-                        isAlive++;
                 }
             }
+
+            LivingCellCout();
 
             if (HeadsUpVisible)
             {
@@ -460,8 +563,8 @@ namespace Game_of_Life
 
             }
 
-            LivingCellCout();
 
+            toolStripStatusLabel1isAlive.Text = "Alive = " + isAlive.ToString();
             toolStripStatusGenerations.Text = "Generations = " + generations.ToString();
             // Cleaning up pens and brushes
             gridPen.Dispose();

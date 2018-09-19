@@ -809,5 +809,55 @@ namespace Game_of_Life
         {
             graphicsPanel1.Refresh();
         }
+
+        private void resetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Reset();
+
+            //Settings Load
+            CellColor = Properties.Settings.Default.CellColor;
+            BGColor = Properties.Settings.Default.BGColor;
+            AliveColor = Properties.Settings.Default.AliveColor;
+            DeadColor = Properties.Settings.Default.DeadColor;
+            gridColor = Properties.Settings.Default.GridColor;
+            universalX = Properties.Settings.Default.UniverseX;
+            universalY = Properties.Settings.Default.UniverseY;
+            timerInterval = Properties.Settings.Default.TimerInterval;
+            seed = Properties.Settings.Default.CurrentSeed;
+            gridVisibleToolStripMenuItem.Checked = Properties.Settings.Default.GridVisible;
+            CountVisible = Properties.Settings.Default.NCVisible;
+            finite = Properties.Settings.Default.Finite;
+            toroidal = Properties.Settings.Default.Toroidal;
+
+            //Universe Relaod
+            universe = new bool[universalX, universalY];
+
+            graphicsPanel1.Refresh();
+        }
+
+        private void reloadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Reload();
+
+            //Settings Load
+            CellColor = Properties.Settings.Default.CellColor;
+            BGColor = Properties.Settings.Default.BGColor;
+            AliveColor = Properties.Settings.Default.AliveColor;
+            DeadColor = Properties.Settings.Default.DeadColor;
+            gridColor = Properties.Settings.Default.GridColor;
+            universalX = Properties.Settings.Default.UniverseX;
+            universalY = Properties.Settings.Default.UniverseY;
+            timerInterval = Properties.Settings.Default.TimerInterval;
+            seed = Properties.Settings.Default.CurrentSeed;
+            gridVisibleToolStripMenuItem.Checked = Properties.Settings.Default.GridVisible;
+            CountVisible = Properties.Settings.Default.NCVisible;
+            finite = Properties.Settings.Default.Finite;
+            toroidal = Properties.Settings.Default.Toroidal;
+
+            //Universe Relaod
+            universe = new bool[universalX, universalY];
+
+            graphicsPanel1.Refresh();
+        }
     }
 }
